@@ -2,15 +2,16 @@ package com.thien.grabcontent.entity;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="page")
-public class PageInfo {
+public class PageInfo extends AbstractBaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
-    private int id;
+    private Long id;
 
     @Column(name="cartoon_id")
     private int cartoonId;
@@ -21,11 +22,11 @@ public class PageInfo {
     @Column(name="page_number")
     private String pageNumber;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -60,18 +61,11 @@ public class PageInfo {
 
         PageInfo pageInfo = (PageInfo) o;
 
-        if (id != pageInfo.id) return false;
-        if (cartoonId != pageInfo.cartoonId) return false;
-        if (!pageUrl.equals(pageInfo.pageUrl)) return false;
-        return pageNumber.equals(pageInfo.pageNumber);
+        return id != null ? id.equals(pageInfo.id) : pageInfo.id == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + cartoonId;
-        result = 31 * result + pageUrl.hashCode();
-        result = 31 * result + pageNumber.hashCode();
-        return result;
+        return id != null ? id.hashCode() : 0;
     }
 }
