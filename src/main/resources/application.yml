@@ -11,3 +11,8 @@ spring:
         show_sql: true
   liquibase:
     change-log: classpath:/liquibase/liquibase-master.xml
+
+application:
+  cartoonList:
+    - name: Dr-Stone
+      url: www.niceoppai.net/Dr-Stone/
