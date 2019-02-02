@@ -9,12 +9,9 @@ import java.io.Serializable;
 public class PageInfo extends AbstractBaseEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;
-
-    @Column(name="cartoon_id")
-    private int cartoonId;
 
     @Column(name="page_url")
     private String pageUrl;
@@ -22,20 +19,16 @@ public class PageInfo extends AbstractBaseEntity implements Serializable {
     @Column(name="page_number")
     private String pageNumber;
 
+    @ManyToOne
+    @JoinColumn(name = "cartoon_id")
+    private CartoonInfo cartoonInfo;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public int getCartoonId() {
-        return cartoonId;
-    }
-
-    public void setCartoonId(int cartoonId) {
-        this.cartoonId = cartoonId;
     }
 
     public String getPageUrl() {
@@ -52,6 +45,14 @@ public class PageInfo extends AbstractBaseEntity implements Serializable {
 
     public void setPageNumber(String pageNumber) {
         this.pageNumber = pageNumber;
+    }
+
+    public CartoonInfo getCartoonInfo() {
+        return cartoonInfo;
+    }
+
+    public void setCartoonInfo(CartoonInfo cartoonInfo) {
+        this.cartoonInfo = cartoonInfo;
     }
 
     @Override

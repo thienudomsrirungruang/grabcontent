@@ -22,15 +22,23 @@ public class CartoonService {
         cartoonRepository.save(toEntity(cartoonInfoDTO));
     }
 
-    public CartoonInfo getCartoonById(Long id){
+    public CartoonInfoDTO getCartoonById(Long id){
         Optional<CartoonInfo> result = cartoonRepository.findById(id);
-        return result.orElse(null);
+        if(result.isPresent()){
+            return toDTO(result.get());
+        }else{
+            return null;
+        }
     }
 
-    public List<CartoonInfo> getAllCartoons(){
+    public List<CartoonInfoDTO> getAllCartoons(){
         ArrayList<CartoonInfo> result = new ArrayList<>();
         cartoonRepository.findAll().forEach(result::add); //converts Iterator to ArrayList
-        return result;
+        ArrayList<CartoonInfoDTO> output = new ArrayList<>();
+        for (CartoonInfo cartoonInfo : result) {
+            output.add(toDTO(cartoonInfo));
+        }
+        return output;
     }
 
     @Transactional
@@ -55,6 +63,15 @@ public class CartoonService {
         cartoonInfo.setCartoonName(cartoonInfoDTO.getCartoonName());
         cartoonInfo.setChapter(cartoonInfoDTO.getChapter());
         cartoonInfo.setEndpoint(cartoonInfoDTO.getEndpoint());
-        return  cartoonInfo;
+        return cartoonInfo;
+    }
+
+    private CartoonInfoDTO toDTO (CartoonInfo cartoonInfo){
+        CartoonInfoDTO cartoonInfoDTO = new CartoonInfoDTO();
+        cartoonInfoDTO.setId(cartoonInfo.getId());
+        cartoonInfoDTO.setCartoonName(cartoonInfo.getCartoonName());
+        cartoonInfoDTO.setChapter(cartoonInfo.getChapter());
+        cartoonInfoDTO.setEndpoint(cartoonInfo.getEndpoint());
+        return cartoonInfoDTO;
     }
 }

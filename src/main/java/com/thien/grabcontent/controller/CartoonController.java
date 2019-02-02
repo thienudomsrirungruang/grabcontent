@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/api/cartoon")
+@RestController
+@RequestMapping("/api/cartoon")
 public class CartoonController {
 
     @Autowired
@@ -20,12 +21,12 @@ public class CartoonController {
     }
 
     @GetMapping("/{id}")
-    public CartoonInfo getCartoonById(@PathVariable("id") Long id){
+    public CartoonInfoDTO getCartoonById(@PathVariable("id") Long id){
         return cartoonService.getCartoonById(id);
     }
 
     @GetMapping
-    public List<CartoonInfo> getAllCartoons(){
+    public List<CartoonInfoDTO> getAllCartoons(){
         return cartoonService.getAllCartoons();
     }
 

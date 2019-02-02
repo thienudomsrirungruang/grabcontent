@@ -2,6 +2,7 @@ package com.thien.grabcontent.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name="cartoon")
@@ -20,6 +21,9 @@ public class CartoonInfo extends AbstractBaseEntity implements Serializable {
 
     @Column(name="chapter")
     private int chapter;
+
+    @OneToMany(mappedBy = "cartoonInfo")
+    private List<PageInfo> pageInfoList;
 
     public Long getId() {
         return id;
@@ -51,6 +55,14 @@ public class CartoonInfo extends AbstractBaseEntity implements Serializable {
 
     public void setChapter(int chapter) {
         this.chapter = chapter;
+    }
+
+    public List<PageInfo> getPageInfoList() {
+        return pageInfoList;
+    }
+
+    public void setPageInfoList(List<PageInfo> pageInfoList) {
+        this.pageInfoList = pageInfoList;
     }
 
     @Override
