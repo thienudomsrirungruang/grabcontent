@@ -15,6 +15,6 @@ public class GrabController {
 
     @PostMapping("/{cartoonName}")
     public void getCartoon(@PathVariable("cartoonName") String cartoonName){
-        grabService.testProp();
+        grabService.getLatestCartoon(cartoonName);
     }
 }
