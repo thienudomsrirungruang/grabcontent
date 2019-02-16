@@ -64,7 +64,7 @@ public class PageService {
         pageRepository.deleteById(id);
     }
 
-    private PageInfo toEntity(PageInfoDTO pageInfoDTO) throws Exception {
+    PageInfo toEntity(PageInfoDTO pageInfoDTO) throws Exception {
         Optional<CartoonInfo> cartoonInfo = cartoonRepository.findById(pageInfoDTO.getCartoonId());
         if(cartoonInfo.isPresent()) {
             PageInfo pageInfo = new PageInfo();
@@ -77,7 +77,7 @@ public class PageService {
         throw new Exception("Cartoon with specified id not found");
     }
 
-    private PageInfoDTO toDTO(PageInfo pageInfo){
+     PageInfoDTO toDTO(PageInfo pageInfo){
         PageInfoDTO pageInfoDTO = new PageInfoDTO();
         pageInfoDTO.setId(pageInfo.getId());
         pageInfoDTO.setCartoonId(pageInfo.getCartoonInfo().getId());

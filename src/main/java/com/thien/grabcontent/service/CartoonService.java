@@ -57,7 +57,7 @@ public class CartoonService {
         cartoonRepository.deleteById(id);
     }
 
-    private CartoonInfo toEntity(CartoonInfoDTO cartoonInfoDTO) {
+    CartoonInfo toEntity(CartoonInfoDTO cartoonInfoDTO) {
         CartoonInfo cartoonInfo = new CartoonInfo();
         cartoonInfo.setId(cartoonInfoDTO.getId());
         cartoonInfo.setCartoonName(cartoonInfoDTO.getCartoonName());
@@ -66,7 +66,7 @@ public class CartoonService {
         return cartoonInfo;
     }
 
-    private CartoonInfoDTO toDTO (CartoonInfo cartoonInfo){
+    CartoonInfoDTO toDTO (CartoonInfo cartoonInfo){
         CartoonInfoDTO cartoonInfoDTO = new CartoonInfoDTO();
         cartoonInfoDTO.setId(cartoonInfo.getId());
         cartoonInfoDTO.setCartoonName(cartoonInfo.getCartoonName());

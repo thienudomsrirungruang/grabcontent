@@ -16,7 +16,7 @@ public class GrabController {
     }
 
     @PostMapping("/{cartoonName}")
-    public void getCartoon(@PathVariable("cartoonName") String cartoonName) throws IOException {
+    public void getCartoon(@PathVariable("cartoonName") String cartoonName) throws Exception {
         grabService.getLatestCartoon(cartoonName);
     }
 }
