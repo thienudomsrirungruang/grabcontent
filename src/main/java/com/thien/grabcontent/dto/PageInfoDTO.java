@@ -5,7 +5,7 @@ public class PageInfoDTO {
     private Long id;
     private Long cartoonId;
     private String pageUrl;
-    private String pageNumber;
+    private int pageNumber;
 
     public Long getId() {
         return id;
@@ -31,11 +31,11 @@ public class PageInfoDTO {
         this.pageUrl = pageUrl;
     }
 
-    public String getPageNumber() {
+    public int getPageNumber() {
         return pageNumber;
     }
 
-    public void setPageNumber(String pageNumber) {
+    public void setPageNumber(int pageNumber) {
         this.pageNumber = pageNumber;
     }
 }

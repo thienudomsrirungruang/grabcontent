@@ -17,7 +17,7 @@ public class PageInfo extends AbstractBaseEntity implements Serializable {
     private String pageUrl;
 
     @Column(name="page_number")
-    private String pageNumber;
+    private int pageNumber;
 
     @ManyToOne
     @JoinColumn(name = "cartoon_id")
@@ -39,11 +39,11 @@ public class PageInfo extends AbstractBaseEntity implements Serializable {
         this.pageUrl = pageUrl;
     }
 
-    public String getPageNumber() {
+    public int getPageNumber() {
         return pageNumber;
     }
 
-    public void setPageNumber(String pageNumber) {
+    public void setPageNumber(int pageNumber) {
         this.pageNumber = pageNumber;
     }
 
