@@ -15,4 +15,4 @@ spring:
 application:
   cartoonList:
     - name: Dr-Stone
-      url: www.niceoppai.net/Dr-Stone/
+      url: http://www.niceoppai.net/Dr-Stone/

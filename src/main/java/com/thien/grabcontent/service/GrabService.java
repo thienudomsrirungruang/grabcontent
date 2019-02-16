@@ -7,6 +7,7 @@ import com.thien.grabcontent.repository.CartoonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +23,7 @@ public class GrabService {
     @Autowired
     private WebService webService;
 
-    public void getLatestCartoon(String cartoonName) {
+    public void getLatestCartoon(String cartoonName) throws IOException {
         System.out.println("test");
         List<CartoonConfig> cartoonList = cartoonProperties.getCartoonList();
 
