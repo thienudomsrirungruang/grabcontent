@@ -34,9 +34,9 @@ public class WebService {
      * @param url url to cartoon
      */
     public List<PageInfoDTO> getEpisode(String url, int episodeNumber, Long cartoonId) throws IOException {
-        String urlToEpisode = url + "/" + episodeNumber + "/?all";
+        String urlToEpisode = url + episodeNumber + "/?all";
         Document document = Jsoup.connect(urlToEpisode).get();
-        Elements pictures = document.select("div.wpm_pag > center > img");
+        Elements pictures = document.select("img");
         int pageNumber = 0;
         ArrayList<PageInfoDTO> pages = new ArrayList<>();
         for(Element pictureElement : pictures){

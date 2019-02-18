@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,20 +59,27 @@ public class GrabService {
 
         // loop over getting specific episodes from web and storing them
         for(int episodeNumber = latestEpisodeStored + 1; episodeNumber <= latestEpisodeOnWeb; episodeNumber++){
+            System.out.println("Episode number " + episodeNumber);
+
             // create cartoon in database
             CartoonInfo newCartoonInfo = new CartoonInfo();
             newCartoonInfo.setChapter(episodeNumber);
             newCartoonInfo.setCartoonName(cartoonName);
             newCartoonInfo.setEndpoint(url + "/" + episodeNumber);
+
             newCartoonInfo = cartoonRepository.save(newCartoonInfo);
+
             Long cartoonId = newCartoonInfo.getId();
 
-            //add pages to database
+
+            // add pages
             List<PageInfoDTO> pages = webService.getEpisode(url, episodeNumber, cartoonId);
+            List<PageInfo> pageInfoList = new ArrayList<>();
             for(PageInfoDTO page : pages){
-                PageInfo pageInfo = pageService.toEntity(page);
-                //TODO
-//                newCartoonInfo.setPageInfoList();
+                pageInfoList.add(pageService.toEntity(page));
+            }
+            for(PageInfo pageInfo : pageInfoList){
+                pageRepository.save(pageInfo);
             }
         }
     }
