@@ -78,9 +78,7 @@ public class GrabService {
             for(PageInfoDTO page : pages){
                 pageInfoList.add(pageService.toEntity(page));
             }
-            for(PageInfo pageInfo : pageInfoList){
-                pageRepository.save(pageInfo);
-            }
+            pageRepository.saveAll(pageInfoList);
         }
     }
 }
