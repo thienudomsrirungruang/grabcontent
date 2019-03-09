@@ -16,3 +16,5 @@ application:
   cartoonList:
     - name: Dr-Stone
       url: http://www.niceoppai.net/Dr-Stone/
+    - name: The-Promised-Neverland
+      url: http://www.niceoppai.net/The-Promised-Neverland/
