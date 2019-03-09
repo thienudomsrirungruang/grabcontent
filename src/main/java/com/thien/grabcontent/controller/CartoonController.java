@@ -40,4 +40,8 @@ public class CartoonController {
         cartoonService.deleteCartoon(id);
     }
 
+    @GetMapping("/cartoonNames")
+    public List<String> getCartoonNames(){
+        return cartoonService.getCartoonNames();
+    }
 }

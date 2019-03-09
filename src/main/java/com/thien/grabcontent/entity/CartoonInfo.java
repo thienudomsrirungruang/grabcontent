@@ -13,7 +13,7 @@ public class CartoonInfo extends AbstractBaseEntity implements Serializable {
     @Column(name="id")
     private Long id;
 
-    @Column(name="cartoonName")
+    @Column(name="cartoon_name")
     private String cartoonName;
 
     @Column(name="endpoint")

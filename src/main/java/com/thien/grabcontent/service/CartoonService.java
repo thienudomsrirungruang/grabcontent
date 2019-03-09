@@ -74,4 +74,8 @@ public class CartoonService {
         cartoonInfoDTO.setEndpoint(cartoonInfo.getEndpoint());
         return cartoonInfoDTO;
     }
+
+    public List<String> getCartoonNames() {
+        return cartoonRepository.findDistinctCartoonName();
+    }
 }
