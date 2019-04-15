@@ -39,4 +39,14 @@
             <dropTable tableName="cartoon"/>
         </rollback>
     </changeSet>
+
+    <changeSet id="20180415" author="Thien">
+        <addColumn tableName="cartoon">
+            <column name="views" type="int" defaultValueNumeric="0"/>
+        </addColumn>
+
+        <rollback>
+            <dropColumn columnName="views" tableName="cartoon"/>
+        </rollback>
+    </changeSet>
 </databaseChangeLog>

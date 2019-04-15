@@ -22,6 +22,9 @@ public class CartoonInfo extends AbstractBaseEntity implements Serializable {
     @Column(name="chapter")
     private int chapter;
 
+    @Column(name="views")
+    private int views;
+
     @OneToMany(mappedBy = "cartoonInfo")
     private List<PageInfo> pageInfoList;
 
@@ -63,6 +66,14 @@ public class CartoonInfo extends AbstractBaseEntity implements Serializable {
 
     public void setPageInfoList(List<PageInfo> pageInfoList) {
         this.pageInfoList = pageInfoList;
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
     }
 
     @Override

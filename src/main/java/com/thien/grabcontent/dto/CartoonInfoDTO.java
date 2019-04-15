@@ -6,6 +6,7 @@ public class CartoonInfoDTO {
     private String cartoonName;
     private String endpoint;
     private int chapter;
+    private int views;
 
     public Long getId() {
         return id;
@@ -39,4 +40,11 @@ public class CartoonInfoDTO {
         this.chapter = chapter;
     }
 
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
+    }
 }

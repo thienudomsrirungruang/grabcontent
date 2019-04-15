@@ -22,10 +22,13 @@ public class CartoonService {
         cartoonRepository.save(toEntity(cartoonInfoDTO));
     }
 
+    @Transactional
     public CartoonInfoDTO getCartoonById(Long id){
         Optional<CartoonInfo> result = cartoonRepository.findById(id);
         if(result.isPresent()){
-            return toDTO(result.get());
+            CartoonInfo resultCartoonInfo = result.get();
+            resultCartoonInfo.setViews(resultCartoonInfo.getViews() + 1);
+            return toDTO(resultCartoonInfo);
         }else{
             return null;
         }
@@ -63,6 +66,7 @@ public class CartoonService {
         cartoonInfo.setCartoonName(cartoonInfoDTO.getCartoonName());
         cartoonInfo.setChapter(cartoonInfoDTO.getChapter());
         cartoonInfo.setEndpoint(cartoonInfoDTO.getEndpoint());
+        cartoonInfo.setViews(cartoonInfoDTO.getViews());
         return cartoonInfo;
     }
 
@@ -72,6 +76,7 @@ public class CartoonService {
         cartoonInfoDTO.setCartoonName(cartoonInfo.getCartoonName());
         cartoonInfoDTO.setChapter(cartoonInfo.getChapter());
         cartoonInfoDTO.setEndpoint(cartoonInfo.getEndpoint());
+        cartoonInfoDTO.setViews(cartoonInfo.getViews());
         return cartoonInfoDTO;
     }
 
