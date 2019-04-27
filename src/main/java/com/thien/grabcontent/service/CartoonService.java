@@ -51,7 +51,6 @@ public class CartoonService {
             CartoonInfo existingCartoon = optionalCartoon.get();
             existingCartoon.setCartoonName(cartoonInfoDTO.getCartoonName());
             existingCartoon.setChapter(cartoonInfoDTO.getChapter());
-            existingCartoon.setEndpoint(cartoonInfoDTO.getEndpoint());
         }
     }
 
@@ -65,7 +64,6 @@ public class CartoonService {
         cartoonInfo.setId(cartoonInfoDTO.getId());
         cartoonInfo.setCartoonName(cartoonInfoDTO.getCartoonName());
         cartoonInfo.setChapter(cartoonInfoDTO.getChapter());
-        cartoonInfo.setEndpoint(cartoonInfoDTO.getEndpoint());
         cartoonInfo.setViews(cartoonInfoDTO.getViews());
         return cartoonInfo;
     }
@@ -75,7 +73,6 @@ public class CartoonService {
         cartoonInfoDTO.setId(cartoonInfo.getId());
         cartoonInfoDTO.setCartoonName(cartoonInfo.getCartoonName());
         cartoonInfoDTO.setChapter(cartoonInfo.getChapter());
-        cartoonInfoDTO.setEndpoint(cartoonInfo.getEndpoint());
         cartoonInfoDTO.setViews(cartoonInfo.getViews());
         return cartoonInfoDTO;
     }

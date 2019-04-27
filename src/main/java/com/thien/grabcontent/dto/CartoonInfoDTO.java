@@ -4,7 +4,6 @@ public class CartoonInfoDTO {
 
     private Long id;
     private String cartoonName;
-    private String endpoint;
     private int chapter;
     private int views;
 
@@ -22,14 +21,6 @@ public class CartoonInfoDTO {
 
     public void setCartoonName(String cartoonName) {
         this.cartoonName = cartoonName;
-    }
-
-    public String getEndpoint() {
-        return endpoint;
-    }
-
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
     }
 
     public int getChapter() {
