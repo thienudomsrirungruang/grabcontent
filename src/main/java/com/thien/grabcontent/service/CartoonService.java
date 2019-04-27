@@ -83,4 +83,14 @@ public class CartoonService {
     public List<String> getCartoonNames() {
         return cartoonRepository.findDistinctCartoonName();
     }
+
+    public List<CartoonInfoDTO> getCartoonsByName(String cartoonName) {
+        ArrayList<CartoonInfo> result = new ArrayList<>();
+        result.addAll(cartoonRepository.findByCartoonNameOrderByChapterDesc(cartoonName));
+        ArrayList<CartoonInfoDTO> output = new ArrayList<>();
+        for (CartoonInfo cartoonInfo : result){
+            output.add(toDTO(cartoonInfo));
+        }
+        return output;
+    }
 }

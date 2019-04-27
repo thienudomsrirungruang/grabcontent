@@ -15,4 +15,6 @@ public interface CartoonRepository extends CrudRepository<CartoonInfo, Long> {
 
     @Query("select distinct(cartoon.cartoonName) from CartoonInfo cartoon")
     List<String> findDistinctCartoonName();
+
+    List<CartoonInfo> findByCartoonNameOrderByChapterDesc(String cartoonName);
 }

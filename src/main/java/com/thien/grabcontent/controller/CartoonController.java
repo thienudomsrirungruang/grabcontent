@@ -44,4 +44,9 @@ public class CartoonController {
     public List<String> getCartoonNames(){
         return cartoonService.getCartoonNames();
     }
+
+    @GetMapping("/byName/{cartoon}")
+    public List<CartoonInfoDTO> getCartoonsByName(@PathVariable("cartoon") String cartoonName){
+        return cartoonService.getCartoonsByName(cartoonName);
+    }
 }
