@@ -1,9 +1,11 @@
 package com.thien.grabcontent.service;
 
+import com.thien.grabcontent.config.CartoonProperties;
 import com.thien.grabcontent.dto.CartoonInfoDTO;
 import com.thien.grabcontent.entity.CartoonInfo;
 import com.thien.grabcontent.repository.CartoonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,9 @@ public class CartoonService {
 
     @Autowired
     CartoonRepository cartoonRepository;
+
+    @Autowired
+    CartoonProperties cartoonProperties;
 
     @Transactional
     public void createCartoon(CartoonInfoDTO cartoonInfoDTO){
@@ -34,9 +39,8 @@ public class CartoonService {
         }
     }
 
-    public List<CartoonInfoDTO> getAllCartoons(){
-        ArrayList<CartoonInfo> result = new ArrayList<>();
-        cartoonRepository.findAll().forEach(result::add); //converts Iterator to ArrayList
+    public List<CartoonInfoDTO> getAllCartoons(int page){
+        List<CartoonInfo> result = cartoonRepository.findAllByOrderByCreateDateDesc(PageRequest.of(page,cartoonProperties.getPageSize()));
         ArrayList<CartoonInfoDTO> output = new ArrayList<>();
         for (CartoonInfo cartoonInfo : result) {
             output.add(toDTO(cartoonInfo));
