@@ -25,9 +25,9 @@ public class CartoonController {
         return cartoonService.getCartoonById(id);
     }
 
-    @GetMapping
-    public List<CartoonInfoDTO> getAllCartoons(){
-        return cartoonService.getAllCartoons();
+    @GetMapping("/page/{page}")
+    public List<CartoonInfoDTO> getAllCartoons(@PathVariable("page") int page){
+        return cartoonService.getAllCartoons(page);
     }
 
     @PutMapping

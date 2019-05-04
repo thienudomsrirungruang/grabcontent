@@ -17,10 +17,10 @@ import java.util.Optional;
 public class CartoonService {
 
     @Autowired
-    CartoonRepository cartoonRepository;
+    private CartoonRepository cartoonRepository;
 
     @Autowired
-    CartoonProperties cartoonProperties;
+    private CartoonProperties cartoonProperties;
 
     @Transactional
     public void createCartoon(CartoonInfoDTO cartoonInfoDTO){
