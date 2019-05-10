@@ -7,6 +7,15 @@ public class CartoonInfoDTO {
     private String endpoint;
     private int chapter;
     private int views;
+    private String firstPageUrl;
+
+    public String getFirstPageUrl() {
+        return firstPageUrl;
+    }
+
+    public void setFirstPageUrl(String firstPageUrl) {
+        this.firstPageUrl = firstPageUrl;
+    }
 
     public Long getId() {
         return id;

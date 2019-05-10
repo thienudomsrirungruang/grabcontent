@@ -44,6 +44,16 @@ public class CartoonService {
         return output;
     }
 
+    public List<CartoonInfoDTO> getCartoonsByViews() {
+        //converts Iterator to ArrayList
+        ArrayList<CartoonInfo> result = new ArrayList<>(cartoonRepository.findAllByOrderByViewsDescIdDesc());
+        ArrayList<CartoonInfoDTO> output = new ArrayList<>();
+        for (CartoonInfo cartoonInfo : result) {
+            output.add(toDTO(cartoonInfo));
+        }
+        return output;
+    }
+
     @Transactional
     public void updateCartoon(CartoonInfoDTO cartoonInfoDTO){
         Optional<CartoonInfo> optionalCartoon = cartoonRepository.findById(cartoonInfoDTO.getId());
@@ -77,6 +87,7 @@ public class CartoonService {
         cartoonInfoDTO.setChapter(cartoonInfo.getChapter());
         cartoonInfoDTO.setEndpoint(cartoonInfo.getEndpoint());
         cartoonInfoDTO.setViews(cartoonInfo.getViews());
+        cartoonInfoDTO.setFirstPageUrl(cartoonInfo.getPageInfoList().size() == 0 ? null : cartoonInfo.getPageInfoList().get(0).getPageUrl());
         return cartoonInfoDTO;
     }
 
