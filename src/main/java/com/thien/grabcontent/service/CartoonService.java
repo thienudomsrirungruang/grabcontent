@@ -1,9 +1,11 @@
 package com.thien.grabcontent.service;
 
+import com.thien.grabcontent.config.CartoonProperties;
 import com.thien.grabcontent.dto.CartoonInfoDTO;
 import com.thien.grabcontent.entity.CartoonInfo;
 import com.thien.grabcontent.repository.CartoonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +17,10 @@ import java.util.Optional;
 public class CartoonService {
 
     @Autowired
-    CartoonRepository cartoonRepository;
+    private CartoonRepository cartoonRepository;
+
+    @Autowired
+    private CartoonProperties cartoonProperties;
 
     @Transactional
     public void createCartoon(CartoonInfoDTO cartoonInfoDTO){
@@ -34,9 +39,8 @@ public class CartoonService {
         }
     }
 
-    public List<CartoonInfoDTO> getAllCartoons(){
-        ArrayList<CartoonInfo> result = new ArrayList<>();
-        cartoonRepository.findAll().forEach(result::add); //converts Iterator to ArrayList
+    public List<CartoonInfoDTO> getAllCartoons(int page){
+        List<CartoonInfo> result = cartoonRepository.findAllByOrderByCreateDateDesc(PageRequest.of(page,cartoonProperties.getPageSize()));
         ArrayList<CartoonInfoDTO> output = new ArrayList<>();
         for (CartoonInfo cartoonInfo : result) {
             output.add(toDTO(cartoonInfo));
@@ -61,7 +65,6 @@ public class CartoonService {
             CartoonInfo existingCartoon = optionalCartoon.get();
             existingCartoon.setCartoonName(cartoonInfoDTO.getCartoonName());
             existingCartoon.setChapter(cartoonInfoDTO.getChapter());
-            existingCartoon.setEndpoint(cartoonInfoDTO.getEndpoint());
         }
     }
 
@@ -75,7 +78,6 @@ public class CartoonService {
         cartoonInfo.setId(cartoonInfoDTO.getId());
         cartoonInfo.setCartoonName(cartoonInfoDTO.getCartoonName());
         cartoonInfo.setChapter(cartoonInfoDTO.getChapter());
-        cartoonInfo.setEndpoint(cartoonInfoDTO.getEndpoint());
         cartoonInfo.setViews(cartoonInfoDTO.getViews());
         return cartoonInfo;
     }
@@ -85,7 +87,6 @@ public class CartoonService {
         cartoonInfoDTO.setId(cartoonInfo.getId());
         cartoonInfoDTO.setCartoonName(cartoonInfo.getCartoonName());
         cartoonInfoDTO.setChapter(cartoonInfo.getChapter());
-        cartoonInfoDTO.setEndpoint(cartoonInfo.getEndpoint());
         cartoonInfoDTO.setViews(cartoonInfo.getViews());
         cartoonInfoDTO.setFirstPageUrl(cartoonInfo.getPageInfoList().size() == 0 ? null : cartoonInfo.getPageInfoList().get(0).getPageUrl());
         return cartoonInfoDTO;
@@ -93,5 +94,15 @@ public class CartoonService {
 
     public List<String> getCartoonNames() {
         return cartoonRepository.findDistinctCartoonName();
+    }
+
+    public List<CartoonInfoDTO> getCartoonsByName(String cartoonName) {
+        ArrayList<CartoonInfo> result = new ArrayList<>();
+        result.addAll(cartoonRepository.findByCartoonNameOrderByChapterDesc(cartoonName));
+        ArrayList<CartoonInfoDTO> output = new ArrayList<>();
+        for (CartoonInfo cartoonInfo : result){
+            output.add(toDTO(cartoonInfo));
+        }
+        return output;
     }
 }
