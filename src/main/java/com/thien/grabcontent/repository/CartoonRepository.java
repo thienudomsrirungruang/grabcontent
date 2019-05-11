@@ -1,16 +1,12 @@
 package com.thien.grabcontent.repository;
 
 import com.thien.grabcontent.entity.CartoonInfo;
-import liquibase.exception.DatabaseException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,4 +23,7 @@ public interface CartoonRepository extends JpaRepository<CartoonInfo, Long> {
     List<CartoonInfo> findByCartoonNameOrderByChapterDesc(String cartoonName);
 
     List<CartoonInfo> findAllByOrderByCreateDateDesc(Pageable pageable);
+
+    @Query("select cartoonInfo from CartoonInfo cartoonInfo join cartoonInfo.pageInfoList pageInfo where cartoonInfo.cartoonName = :cartoon and cartoonInfo.chapter = :chapter order by pageInfo.pageNumber")
+    Optional<CartoonInfo> findByCartoonNameAndChapterOrderByPageNumber(@Param("cartoon") String cartoon, @Param("chapter") int chapter);
 }

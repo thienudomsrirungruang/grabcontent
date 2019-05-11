@@ -17,4 +17,8 @@ public class IndexController {
         return "main";
     }
 
+    @GetMapping("/{cartoonName}/{chapter}")
+    public String getChapterPage() {
+        return "chapter";
+    }
 }

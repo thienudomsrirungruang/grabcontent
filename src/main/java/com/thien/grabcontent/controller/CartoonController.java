@@ -51,9 +51,14 @@ public class CartoonController {
     }
 
     @GetMapping("/byViews")
-    @ResponseBody
     public List<CartoonInfoDTO> getCartoonsByViews(@RequestParam String page) {
         int pageInt = Integer.parseInt(page);
         return cartoonService.getCartoonsByViews(pageInt);
+    }
+
+    @GetMapping("/getPages/{cartoon}/{chapter}")
+    public List<String> getPageUrlByCartoonChapter(@PathVariable("cartoon") String cartoon, @PathVariable("chapter") String chapter) {
+        int chapterInt = Integer.parseInt(chapter);
+        return cartoonService.getPageUrlByCartoonChapter(cartoon, chapterInt);
     }
 }

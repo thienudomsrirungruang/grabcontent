@@ -3,7 +3,9 @@ package com.thien.grabcontent.service;
 import com.thien.grabcontent.config.CartoonProperties;
 import com.thien.grabcontent.dto.CartoonInfoDTO;
 import com.thien.grabcontent.entity.CartoonInfo;
+import com.thien.grabcontent.entity.PageInfo;
 import com.thien.grabcontent.repository.CartoonRepository;
+import com.thien.grabcontent.repository.PageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -20,27 +22,30 @@ public class CartoonService {
     private CartoonRepository cartoonRepository;
 
     @Autowired
+    private PageRepository pageRepository;
+
+    @Autowired
     private CartoonProperties cartoonProperties;
 
     @Transactional
-    public void createCartoon(CartoonInfoDTO cartoonInfoDTO){
+    public void createCartoon(CartoonInfoDTO cartoonInfoDTO) {
         cartoonRepository.save(toEntity(cartoonInfoDTO));
     }
 
     @Transactional
-    public CartoonInfoDTO getCartoonById(Long id){
+    public CartoonInfoDTO getCartoonById(Long id) {
         Optional<CartoonInfo> result = cartoonRepository.findById(id);
-        if(result.isPresent()){
+        if (result.isPresent()) {
             CartoonInfo resultCartoonInfo = result.get();
             resultCartoonInfo.setViews(resultCartoonInfo.getViews() + 1);
             return toDTO(resultCartoonInfo);
-        }else{
+        } else {
             return null;
         }
     }
 
-    public List<CartoonInfoDTO> getAllCartoons(int page){
-        List<CartoonInfo> result = cartoonRepository.findAllByOrderByCreateDateDesc(PageRequest.of(page,cartoonProperties.getPageSize()));
+    public List<CartoonInfoDTO> getAllCartoons(int page) {
+        List<CartoonInfo> result = cartoonRepository.findAllByOrderByCreateDateDesc(PageRequest.of(page, cartoonProperties.getPageSize()));
         ArrayList<CartoonInfoDTO> output = new ArrayList<>();
         for (CartoonInfo cartoonInfo : result) {
             output.add(toDTO(cartoonInfo));
@@ -50,7 +55,7 @@ public class CartoonService {
 
     public List<CartoonInfoDTO> getCartoonsByViews(int page) {
         //converts Iterator to ArrayList
-        ArrayList<CartoonInfo> result = new ArrayList<>(cartoonRepository.findAllByOrderByViewsDescIdDesc(PageRequest.of(page,cartoonProperties.getPageSize())));
+        ArrayList<CartoonInfo> result = new ArrayList<>(cartoonRepository.findAllByOrderByViewsDescIdDesc(PageRequest.of(page, cartoonProperties.getPageSize())));
         ArrayList<CartoonInfoDTO> output = new ArrayList<>();
         for (CartoonInfo cartoonInfo : result) {
             output.add(toDTO(cartoonInfo));
@@ -59,9 +64,9 @@ public class CartoonService {
     }
 
     @Transactional
-    public void updateCartoon(CartoonInfoDTO cartoonInfoDTO){
+    public void updateCartoon(CartoonInfoDTO cartoonInfoDTO) {
         Optional<CartoonInfo> optionalCartoon = cartoonRepository.findById(cartoonInfoDTO.getId());
-        if(optionalCartoon.isPresent()) {
+        if (optionalCartoon.isPresent()) {
             CartoonInfo existingCartoon = optionalCartoon.get();
             existingCartoon.setCartoonName(cartoonInfoDTO.getCartoonName());
             existingCartoon.setChapter(cartoonInfoDTO.getChapter());
@@ -69,7 +74,7 @@ public class CartoonService {
     }
 
     @Transactional
-    public void deleteCartoon(Long id){
+    public void deleteCartoon(Long id) {
         cartoonRepository.deleteById(id);
     }
 
@@ -82,7 +87,7 @@ public class CartoonService {
         return cartoonInfo;
     }
 
-    CartoonInfoDTO toDTO (CartoonInfo cartoonInfo){
+    CartoonInfoDTO toDTO(CartoonInfo cartoonInfo) {
         CartoonInfoDTO cartoonInfoDTO = new CartoonInfoDTO();
         cartoonInfoDTO.setId(cartoonInfo.getId());
         cartoonInfoDTO.setCartoonName(cartoonInfo.getCartoonName());
@@ -100,9 +105,23 @@ public class CartoonService {
         ArrayList<CartoonInfo> result = new ArrayList<>();
         result.addAll(cartoonRepository.findByCartoonNameOrderByChapterDesc(cartoonName));
         ArrayList<CartoonInfoDTO> output = new ArrayList<>();
-        for (CartoonInfo cartoonInfo : result){
+        for (CartoonInfo cartoonInfo : result) {
             output.add(toDTO(cartoonInfo));
         }
         return output;
+    }
+
+    public List<String> getPageUrlByCartoonChapter(String cartoon, int chapterInt) {
+        Optional<CartoonInfo> optionalCartoon = cartoonRepository.findByCartoonNameAndChapterOrderByPageNumber(cartoon, chapterInt);
+        if (optionalCartoon.isPresent()) {
+            CartoonInfo cartoonInfo = optionalCartoon.get();
+            List<PageInfo> pageInfoList = cartoonInfo.getPageInfoList();
+            ArrayList<String> urlList = new ArrayList<>();
+            for (PageInfo pageInfo : pageInfoList) {
+                urlList.add(pageInfo.getPageUrl());
+            }
+            return urlList;
+        }
+        return null;
     }
 }
