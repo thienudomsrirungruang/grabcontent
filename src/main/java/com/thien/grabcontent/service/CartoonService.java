@@ -48,9 +48,9 @@ public class CartoonService {
         return output;
     }
 
-    public List<CartoonInfoDTO> getCartoonsByViews() {
+    public List<CartoonInfoDTO> getCartoonsByViews(int page) {
         //converts Iterator to ArrayList
-        ArrayList<CartoonInfo> result = new ArrayList<>(cartoonRepository.findAllByOrderByViewsDescIdDesc());
+        ArrayList<CartoonInfo> result = new ArrayList<>(cartoonRepository.findAllByOrderByViewsDescIdDesc(PageRequest.of(page,cartoonProperties.getPageSize())));
         ArrayList<CartoonInfoDTO> output = new ArrayList<>();
         for (CartoonInfo cartoonInfo : result) {
             output.add(toDTO(cartoonInfo));

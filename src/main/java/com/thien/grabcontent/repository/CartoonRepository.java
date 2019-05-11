@@ -22,7 +22,7 @@ public interface CartoonRepository extends JpaRepository<CartoonInfo, Long> {
     @Query("select distinct(cartoon.cartoonName) from CartoonInfo cartoon")
     List<String> findDistinctCartoonName();
 
-    List<CartoonInfo> findAllByOrderByViewsDescIdDesc();
+    List<CartoonInfo> findAllByOrderByViewsDescIdDesc(Pageable pageable);
 
     List<CartoonInfo> findByCartoonNameOrderByChapterDesc(String cartoonName);
 

@@ -25,9 +25,10 @@ public class CartoonController {
         return cartoonService.getCartoonById(id);
     }
 
-    @GetMapping("/page/{page}")
-    public List<CartoonInfoDTO> getAllCartoons(@PathVariable("page") int page){
-        return cartoonService.getAllCartoons(page);
+    @GetMapping
+    public List<CartoonInfoDTO> getAllCartoons(@RequestParam String page){
+        int pageInt = Integer.parseInt(page);
+        return cartoonService.getAllCartoons(pageInt);
     }
 
     @PutMapping
@@ -49,4 +50,6 @@ public class CartoonController {
     public List<CartoonInfoDTO> getCartoonsByName(@PathVariable("cartoon") String cartoonName){
         return cartoonService.getCartoonsByName(cartoonName);
     }
+
+
 }

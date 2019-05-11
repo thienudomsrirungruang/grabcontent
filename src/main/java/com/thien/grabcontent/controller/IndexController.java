@@ -6,7 +6,7 @@ import com.thien.grabcontent.service.CartoonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -18,13 +18,14 @@ public class IndexController {
     CartoonService cartoonService;
 
     @GetMapping("/")
-    public String getMainPage(){
+    public String getMainPage() {
         return "main";
     }
 
     @GetMapping("/api/cartoon/byViews")
     @ResponseBody
-    public List<CartoonInfoDTO> getCartoonsByViews(){
-        return cartoonService.getCartoonsByViews();
+    public List<CartoonInfoDTO> getCartoonsByViews(@RequestParam String page) {
+        int pageInt = Integer.parseInt(page);
+        return cartoonService.getCartoonsByViews(pageInt);
     }
 }
