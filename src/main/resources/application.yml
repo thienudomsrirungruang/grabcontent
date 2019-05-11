@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://192.168.99.100:3306/grabcontent?autoReconnect=true&useSSL=false
     username: root
-    password: 1234567890
+    password: root
   jpa:
     properties:
       hibernate:
@@ -18,4 +18,5 @@ application:
       url: http://www.niceoppai.net/Dr-Stone/
     - name: The-Promised-Neverland
       url: http://www.niceoppai.net/The-Promised-Neverland/
-  pageSize: 10
+  pageSize: 12
+  
