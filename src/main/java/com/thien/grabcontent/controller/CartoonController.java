@@ -50,7 +50,7 @@ public class CartoonController {
         return cartoonService.getCartoonsByName(cartoonName);
     }
 
-    @GetMapping("/api/cartoon/byViews")
+    @GetMapping("/byViews")
     @ResponseBody
     public List<CartoonInfoDTO> getCartoonsByViews(@RequestParam String page) {
         int pageInt = Integer.parseInt(page);
