@@ -9,7 +9,7 @@ function init(){
 
     $.ajax({
         method: 'GET',
-        url: '/api/cartoon/getPages/cartoonName/chapter'
+        url: '/api/cartoon/getPages/'+cartoonName+'/'+chapter
     }).done(function(listOfUrls){
         console.log(listOfUrls);
     });
