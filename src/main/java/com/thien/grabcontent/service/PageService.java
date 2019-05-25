@@ -1,6 +1,5 @@
 package com.thien.grabcontent.service;
 
-import com.thien.grabcontent.dto.CartoonInfoDTO;
 import com.thien.grabcontent.dto.PageInfoDTO;
 import com.thien.grabcontent.entity.CartoonInfo;
 import com.thien.grabcontent.entity.PageInfo;
@@ -28,16 +27,16 @@ public class PageService {
         pageRepository.save(toEntity(pageInfoDTO));
     }
 
-    public PageInfoDTO getPageById(Long id){
+    public PageInfoDTO getPageById(Long id) {
         Optional<PageInfo> result = pageRepository.findById(id);
-        if(result.isPresent()){
+        if (result.isPresent()) {
             return toDTO(result.get());
-        }else{
+        } else {
             return null;
         }
     }
 
-    public List<PageInfoDTO> getAllPages(){
+    public List<PageInfoDTO> getAllPages() {
         ArrayList<PageInfo> result = new ArrayList<>();
         pageRepository.findAll().forEach(result::add); //converts Iterator to ArrayList
         ArrayList<PageInfoDTO> output = new ArrayList<>();
@@ -48,10 +47,10 @@ public class PageService {
     }
 
     @Transactional
-    public void updatePage(PageInfoDTO pageInfoDTO){
+    public void updatePage(PageInfoDTO pageInfoDTO) {
         Optional<PageInfo> optionalPage = pageRepository.findById(pageInfoDTO.getId());
         Optional<CartoonInfo> cartoonInfo = cartoonRepository.findById(pageInfoDTO.getCartoonId());
-        if(optionalPage.isPresent() && cartoonInfo.isPresent()) {
+        if (optionalPage.isPresent() && cartoonInfo.isPresent()) {
             PageInfo existingPage = optionalPage.get();
             existingPage.setCartoonInfo(cartoonInfo.get());
             existingPage.setPageUrl(pageInfoDTO.getPageUrl());
@@ -60,13 +59,13 @@ public class PageService {
     }
 
     @Transactional
-    public void deletePage(Long id){
+    public void deletePage(Long id) {
         pageRepository.deleteById(id);
     }
 
     PageInfo toEntity(PageInfoDTO pageInfoDTO) throws Exception {
         Optional<CartoonInfo> cartoonInfo = cartoonRepository.findById(pageInfoDTO.getCartoonId());
-        if(cartoonInfo.isPresent()) {
+        if (cartoonInfo.isPresent()) {
             PageInfo pageInfo = new PageInfo();
             pageInfo.setId(pageInfoDTO.getId());
             pageInfo.setCartoonInfo(cartoonInfo.get());
@@ -77,7 +76,7 @@ public class PageService {
         throw new Exception("Cartoon with specified id not found");
     }
 
-     PageInfoDTO toDTO(PageInfo pageInfo){
+    PageInfoDTO toDTO(PageInfo pageInfo) {
         PageInfoDTO pageInfoDTO = new PageInfoDTO();
         pageInfoDTO.setId(pageInfo.getId());
         pageInfoDTO.setCartoonId(pageInfo.getCartoonInfo().getId());

@@ -5,24 +5,24 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name="cartoon")
+@Table(name = "cartoon")
 public class CartoonInfo extends AbstractBaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name="cartoon_name")
+    @Column(name = "cartoon_name")
     private String cartoonName;
 
-    @Column(name="endpoint")
+    @Column(name = "endpoint")
     private String endpoint;
 
-    @Column(name="chapter")
+    @Column(name = "chapter")
     private int chapter;
 
-    @Column(name="views")
+    @Column(name = "views")
     private int views;
 
     @OneToMany(mappedBy = "cartoonInfo")

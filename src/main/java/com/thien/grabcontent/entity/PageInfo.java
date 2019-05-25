@@ -5,18 +5,18 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="page")
+@Table(name = "page")
 public class PageInfo extends AbstractBaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name="page_url")
+    @Column(name = "page_url")
     private String pageUrl;
 
-    @Column(name="page_number")
+    @Column(name = "page_number")
     private int pageNumber;
 
     @ManyToOne
