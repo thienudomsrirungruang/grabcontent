@@ -57,6 +57,7 @@ public class CartoonController {
     }
 
     @GetMapping("/getPages/{cartoon}/{chapter}")
+    @ResponseBody
     public List<String> getPageUrlByCartoonChapter(@PathVariable("cartoon") String cartoon, @PathVariable("chapter") String chapter) {
         int chapterInt = Integer.parseInt(chapter);
         return cartoonService.getPageUrlByCartoonChapter(cartoon, chapterInt);
